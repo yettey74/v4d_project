@@ -1,0 +1,5 @@
+file(GLOB_RECURSE _modulesConfigFiles **/module.conf)
+foreach (_moduleConfigFile ${_modulesConfigFiles})
+	string(REGEX REPLACE "/module\.conf$" "" _ModuleDir ${_moduleConfigFile})
+	include(${_moduleConfigFile})
+endforeach()

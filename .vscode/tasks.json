@@ -1,0 +1,103 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "quick build",
+            "type": "shell",
+            "command": "clear; cd build && cmake --build . --parallel 8",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "build"
+        },
+        {
+            "label": "quick build windows debug",
+            "type": "shell",
+            "command": "clear; crosscompile/windows/build.sh && crosscompile/windows/send.sh debug",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "test"
+        },
+        {
+            "label": "quick build all platforms debug",
+            "type": "shell",
+            "command": "clear; crosscompile/windows/build.sh && crosscompile/windows/send.sh debug && cd build && cmake --build . --parallel 8",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "test"
+        },
+        {
+            "label": "quick build windows debug & run demo remotely",
+            "type": "shell",
+            "command": "clear; crosscompile/windows/build.sh && crosscompile/windows/send.sh debug && crosscompile/windows/run.sh debug demo",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "test"
+        },
+        {
+            "label": "quick build windows debug & run tests remotely",
+            "type": "shell",
+            "command": "clear; crosscompile/windows/build.sh && crosscompile/windows/send.sh debug && crosscompile/windows/run_console.sh debug tests",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "test"
+        },
+        {
+            "label": "cmake cleanup & reset debug",
+            "type": "shell",
+            "command": "clear; cd build && rm -rf * ../crosscompile/windows/build/*; cmake -DCMAKE_BUILD_TYPE=Debug .. ; ../crosscompile/windows/cmake.sh Debug",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "build"
+        },
+        {
+            "label": "clean build all shaders",
+            "type": "shell",
+            "command": "clear; cd build && rm -f CMakeCache.txt ; find . -type d -name 'shaders' | xargs rm -rf ; cmake .. -DCMAKE_BUILD_TYPE=Debug ; make shaders -j8;",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "build"
+        },
+        {
+            "label": "clean build current platform",
+            "type": "shell",
+            "command": "clear; tools/cleanbuild.sh",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "build"
+        },
+        {
+            "label": "clean build all platforms",
+            "type": "shell",
+            "command": "clear; tools/cleanbuild.sh windows",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "build"
+        },
+        {
+            "label": "unit tests linux",
+            "type": "shell",
+            "command": "clear; cd build && cmake --build . --parallel 8 && cd debug && ./tests",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "test"
+        },
+        {
+            "label": "send package",
+            "type": "shell",
+            "command": "clear; workspace/sendReleasePackage.sh",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+            "group": "test"
+        },
+        {
+            "label": "Profile demo",
+            "type": "shell",
+            "command": "clear; cd build/debug; rm callgrind.out.*; valgrind --tool=callgrind ./demo; kcachegrind `ls callgrind.out.*`",
+        },
+        
+        // Custom scripts for reloading modules dynamically when modifying source code, without restarting the app
+        {
+            "label": "[V4D_planetdemo] AutoRebuild TerrainGenerator",
+            "type": "shell",
+            "command": "clear; src/v4d/modules/V4D_planetdemo/TerrainGenerator/autobuild.sh",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+        },
+        {
+            "label": "[V4D_planetdemo] AutoRebuild TerrainGenerator (ON REMOTE WINDOWS MACHINE)",
+            "type": "shell",
+            "command": "clear; src/v4d/modules/V4D_planetdemo/TerrainGenerator/autobuild_windows.sh",
+            "problemMatcher": {"base":"$gcc","fileLocation":"absolute"},
+        },
+    ]
+}

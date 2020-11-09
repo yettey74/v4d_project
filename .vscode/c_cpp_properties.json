@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/src/v4d/core",
+                "${workspaceFolder}/src/v4d/xvk",
+                "${workspaceFolder}/src/openssl/include",
+                "${workspaceFolder}/src/imgui",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/v4d/modules/V4D_bullet/bullet3/src/"
+            ],
+            "defines": [
+                "_LINUX",
+                "_DEBUG",
+                "_RELEASE",
+                "_V4D_IN_EDITOR",
+                "_V4D_CORE",
+                "_V4D_PROJECT",
+                "_V4D_MODULE",
+                "_VULKAN_LOAD_AT_RUNTIME",
+                "_ENABLE_IMGUI",
+                "THIS_MODULE=\"<VENDOR>_<modulename>\""
+            ],
+            "compilerPath": "/bin/g++",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "configurationProvider": "vector-of-bool.cmake-tools"
+        }
+    ],
+    "version": 4
+}

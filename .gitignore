@@ -1,0 +1,7 @@
+.vscode/ipch
+**/*.gch
+build/**
+workspace/**
+crosscompile/windows/dll/unused
+crosscompile/windows/build/**
+tmp/**
